@@ -1,0 +1,371 @@
+<!--TOOLBAR_START--><!--TOOLBAR_EXEMPT--><!--TOOLBAR_END-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML DIR="LTR"><HEAD>
+<META HTTP-EQUIV="Content-Type" Content="text/html; charset=Windows-1252">
+</HEAD>
+<body topmargin=0 id="bodyID" class = "dtBODY">
+<H1 class="dtH1">MSXML 4.0 SP2 Release Notes</H1>
+
+<P>The following release notes contain documentation updates to the Microsoft&reg; XML Core Services (MSXML) 4.0 Service Pack 2 (SP2) Software Development Kit (SDK). Use the headings below to locate the updated topic in the MSXML 4.0 SP2 SDK table of contents.</P>
+
+<BLOCKQUOTE class="dtBlock">
+<b class="le">Note</b>&nbsp;&nbsp;&nbsp;These release notes update but do not replace the documentation found in the SDK.</BLOCKQUOTE>
+
+<H2 class="dtH2">Upgrading to the MSXML 4.0 SP2 SDK</H2>
+
+<P>The following are important notes about proper installation of the SDK for MSXML 4.0 SP2:
+
+<UL type="disc">
+	<LI>The MSXML 4.0 SP2 SDK is not installed or upgraded by default.</li>
+
+	<LI>To properly install or upgrade to the MSXML 4.0 SP2 SDK, uninstall the previous version of MSXML 4.0 and then install MSXML 4.0 SP2 with the custom option to install the SDK selected.</li>
+
+	<LI>If you do not uninstall previous versions of the MSXML4.0 SDK, the existing SDK shortcut on the desktop and start menu will refer to the previous version of the SDK.</li>
+
+	<LI>The file names of the MSXML 4.0 SP2 SDK have been changed to xmlsdk4.chm and xmlsdk4.chi.</li>
+
+	<LI>To uninstall previous versions of MSXML 4.0 quietly, use the command line option (this option will remove the desktop icon and SDK files):
+<P>At the command prompt type "msiexec /qn /x" and then type the appropriate product GUID. The product GUIDs are as follows:
+
+<UL type="disc">
+	<LI>MSXML 4.0 SP1 GUID = {35343FF7-939B-401A-87B3-FF90A5123D88}</li>
+
+	<LI>MSXML 4.0 GUID  = {2AEBE10C-D819-4EBF-BC60-03BF2327D340}</li>
+</UL>
+</li>
+</UL>
+
+<H2 class="dtH2">Redistributing MSXML</H2>
+
+<P>The MSXML 4.0 merge module redistribution package allows you to distribute MSXML 4.0 with any Microsoft Windows&reg; desktop application you build using Microsoft Visual Basic&reg; 6.0 or Visual C++&reg; 6.0.</P>
+
+<P>The following updates the "To create a Windows Installer package that installs MSXML 4.0 with your application" procedure.</P>
+
+<P>You are now required to include two merge modules, msxml4sys32.msm (installs DLL files in the \Windows\system32\ directory on all supported versions of Windows), and msxml4sxs32.msm (installs DLL files in the \Windows\WinSxS directory on Windows XP or later versions of Windows). When following this procedure, replace the msxml.msm merge module listed in the procedure with msxml4sys32.msm and msxml4sxs32.msm.</P>
+
+<H2 class="dtH2">DOM Reference</H2>
+
+<P>The following are documentation updates for the Document Object Model (DOM).</P>
+
+<H3 class="dtH3">XML DOM Properties</H3>
+
+<P>The following are documentation updates for the XML DOM properties.
+
+<UL type="disc">
+	<LI>dataType Property</li>
+
+	<LI>nodeTypedValue Property</li>
+</UL>
+
+<H4 class="dtH4">dataType Property</H4>
+
+<P>The following statement in the remarks section for the <code class="ce">dataType</code> property is incorrect.</P>
+
+<P>"This property applies to DTDs only, not to XML-Data Reduced (XDR) schemas or XML Schemas (XSD)."</P>
+
+<P>The following updates the remarks section for the <code class="ce">dataType</code> property.</P>
+
+<P>This property applies to Document Type Definition (DTD) and XDR schemas and it does not apply to XML Schemas (XSD).</P>
+
+<P>When an XML document is defined by an XSD schema, the <code class="ce">dataType</code> property for all nodes will have the value of <code class="ce">VT_NULL</code>. The <code class="ce">dataType</code> property is for XDR or DTD schemas. If you have an XSD schema, you find the type of a node by calling <code class="ce">getDeclaration</code> and then getting the <code class="ce">itemType</code>. The <code class="ce">dataType</code> of elements defined in XSD schemas are not initialized and will return <code class="ce">VT_NULL</code>. In addition, the <code class="ce">nodeTypedValue</code> property depends on the <code class="ce">dataType</code> to return the value information. If the <code class="ce">dataType</code> property is missing, it will return the variant as a <code class="ce">VT_BSTR</code> type.</P>
+
+<P>The reason for this behavior is that XSD schemas can define complicated custom types and there is no implementation in MSXML 4.0 to directly map between XSD types and COM variant types.</P>
+
+<H4 class="dtH4">nodeTypedValue Property</H4>
+
+<P>The following updates the remarks section for the <code class="ce">nodeTypedValue</code> property.</P>
+
+<P>This property applies to Document Type Definition (DTD) and XML-Data Reduced (XDR) schemas and it does not apply to XML Schemas (XSD).</P>
+
+<P>When an XML document is defined by an XSD schema, the variant returned by calling the <code class="ce">nodeTypedValue </code>property is always of type <code class="ce">VT_BSTR</code>. The <code class="ce">dataType</code> property is for XDR or DTD schemas. If you have an XSD schema, you find the type of a node by calling <code class="ce">getDeclaration</code> and then getting the <code class="ce">itemType</code>. The <code class="ce">dataType</code> of elements defined in XSD schemas are not initialized and will return <code class="ce">VT_NULL</code>. In addition, the <code class="ce">nodeTypedValue</code> property depends on the <code class="ce">dataType</code> to return the value information. If the <code class="ce">dataType</code> property is missing, it will return the variant as a <code class="ce">VT_BSTR</code> type.</P>
+
+<P>The reason for this behavior is that XSD schemas can define complicated custom types and there is no implementation in MSXML 4.0 to directly map between XSD types and COM variant types.</P>
+
+<P>You can explicitly set the <code class="ce">nodeTypedValue</code> property with a particular data type in the variant. The set operation does not change the data type. The value in the variant is converted to the data type specified in the <code class="ce">dataType</code> property, and the set operation returns an error if the type conversion is not possible.</P>
+
+<P>When working with an XSD schema, you can get the corresponding variant type by setting the <code class="ce">dataType</code> property before calling the <code class="ce">nodeTypedValue</code> property. A data conversion will occur, but it may not always be possible. If the data conversion is not possible, a COM exception will be thrown.</P>
+
+<H3 class="dtH3">XML DOM Methods</H3>
+
+<P>The following are documentation updates for the XML DOM methods.</P>
+
+<P>This section contains updates for the following topic:
+
+<UL type="disc">
+	<LI>setOption Method</li>
+</UL>
+
+<H4 class="dtH4">setOption Method</H4>
+
+<P>The following updates the remarks section for the <code class="ce">SXH_OPTION_SELECT_CLIENT_SSL_CERT</code> option.</P>
+
+<P>With MSXML 4.0, the client certificate can be installed in the local machine certificate store, whereas in the previous release the certificate was installed in the user's personal store. After the certificate has been installed, you can use the Certificates MMC snap-in to view the certificate. If you have multiple certificates installed, you can use the <CODE>setOption</CODE> method to specify the name of the certificate with a full path to the certificate.</P>
+
+<PRE class="code">const SXH_OPTION_SELECT_CLIENT_SSL_CERT = 3
+http.setOption SXH_OPTION_SELECT_CLIENT_SSL_CERT, "LOCAL_MACHINE\My\my certificate"</PRE>
+
+<P>The path specified refers to the registry key: <CODE>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\SystemCertificates\My\Certificates</CODE>.</P>
+
+<H2 class="dtH2">SAX2 Reference</H2>
+
+<P>The following are documentation updates for the Simple API for XML (SAX) interfaces.</P>
+
+<P>This section contains updates for the following topic:
+
+<UL type="disc">
+	<LI>ISAXXMLReader Interface</li>
+</UL>
+
+<H3 class="dtH3">ISAXXMLReader Interface</H3>
+
+<P>The following are documentation updates for the ISAXXMLReader interface.</P>
+
+<P>This section contains updates for the following topics:
+
+<UL type="disc">
+	<LI>getFeature Method</li>
+
+	<LI>putFeature Method</li>
+
+	<LI>putProperty Method</li>
+</UL>
+
+<H4 class="dtH4">getFeature Method</H4>
+
+<P>Returns the Boolean value of a feature.</P>
+
+<P>In addition to the features listed in the MSXML 4.0 SP2 SDK, the following feature is also supported:</P>
+
+<PRE class="code">"use-schema-location"</PRE>
+
+<H4 class="dtH4">putFeature Method</H4>
+
+<P>Sets the value of a feature.</P>
+
+<P>In addition to the features listed in the MSXML 4.0 SP2 SDK, the <CODE>ISAXXMLReader</CODE> interface recognizes the following feature:</P>
+
+<PRE class="code">"use-schema-location"</PRE>
+
+<P>True &#0151; (default) Use <CODE>xsi:schemaLocation</CODE> to load external schemas.</P>
+
+<P>False &#0151; External schemas will not be loaded.</P>
+
+<P>Access &#0151; (parsing) read-only; (not parsing) read/write.</P>
+
+<H4 class="dtH4">putProperty Method</H4>
+
+<P>The <CODE>xml-string</CODE> property in the <CODE>putProperty</CODE> method does not exist and should be disregarded.</P>
+
+<H2 class="dtH2">List Of Known Breaking Changes In MSXML 4.0 SP2</H2>
+
+<BLOCKQUOTE class="dtBlock">
+<b class="le">Disclaimer</b>&nbsp;&nbsp;&nbsp;This following section of this document describes changes made in MSXML 4.0 SP2 that break with compatibility to earlier versions of MSXML 4.0. While the list has been reviewed for technical accuracy by the Microsoft XML team, it should not be interpreted as a complete or final list of any such changes. Potentially, additional breaking changes might exist in some usage cases. If you suspect you have come across a breaking change in MSXML 4.0 not documented here, please contact Microsoft Product Support Services (PSS) to report it and receive further technical support.</BLOCKQUOTE>
+
+<H3 class="dtH3">XSD validation will enforce &lt;xsd:restriction&gt; on a base &lt;xsd:simpleType&gt; rule</H3>
+
+<P>In MSXML 4.0 RTM and SP1, XML schema validation does not enforce restrictions that are defined on base simpleTypes.</P>
+
+<P>For example, in either of these prior versions of MSXML 4.0, no validation errors occur if you validate the data in the following sample XML document (Restriction.xml) against the sample schema (Restriction.xsd).</P>
+
+<P class="label"><B>Restriction.xml</B></P>
+
+<PRE class="code">&lt;?xml version="1.0"?&gt;
+&lt;AlphaTestValue&gt;ABCDE-&lt;/AlphaTestValue&gt;</PRE>
+
+<P class="label"><B>Restriction.xsd</B></P>
+
+<PRE class="code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="unqualified"&gt;
+  &lt;xsd:element name="AlphaTestValue" type="AlphaTypeMaxLength6"/&gt;
+    <code><b class="cfe">&lt;xsd:simpleType name="AlphaType"&gt;</b></code>
+      <code><b class="cfe">&lt;xsd:restriction base="xsd:string"&gt;</b></code>
+        <code><b class="cfe">&lt;xsd:pattern value="[A-Z]*"/&gt;</b></code>
+      <code><b class="cfe">&lt;/xsd:restriction&gt;</b></code>
+    <code><b class="cfe">&lt;/xsd:simpleType&gt;</b></code>
+    &lt;xsd:simpleType name="AlphaTypeMaxLength6"&gt;
+      &lt;xsd:restriction base="AlphaType"&gt;
+        &lt;xsd:maxLength value="6"/&gt;
+      &lt;/xsd:restriction&gt;
+    &lt;/xsd:simpleType&gt;
+&lt;/xsd:schema&gt;</PRE>
+
+<P>In these earlier versions of MSXML 4.0, no validation error would be reported even though the value of the <code class="ce">&lt;AlphaTestValue/&gt;</code> element contains a character (the "-" character) restricted by the schema, as indicated by the base type restriction in the <code class="ce">&lt;xsd:simpleType name="AlphaType"/&gt;</code> schema rule (highlighted above).</P>
+
+<P>In MSXML 4.0 SP2, however, any XML data that violates restrictions defined on base simpleTypes fail validation. For example, MSXML 4.0 SP2 will raise a validation error when validating <B>Restriction.xml</B> against the <B>Restriction.xsd</B> schema. This breaking change was implemented to enhance compliancy with the World Wide Web Consortium (W3C) XML Schema specification.</P>
+
+<H3 class="dtH3">SetAttribute Method Raises Error When Attribute Value Contains Invalid XML Characters</H3>
+
+<P>In MSXML 4.0 RTM and SP1, the <B>IXMLDOMElement.setAttribute()</B> method would not report errors if the attribute value specified with this method contained invalid XML characters.</P>
+
+<P>For MSXML 4.0 SP2, only valid XML characters and character ranges are allowed for use with the <B>setAttribute</B> method. Valid ranges for XML character data are defined by the W3C XML language specifications 1.0 as characters within the following ranges of hexadecimal values:</P>
+
+<PRE class="code">#x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] |[#x10000-#x10FFFF]</PRE>
+
+<P>If you upgrade to MSXML 4.0 SP2 and then attempt to use <B>setAttribute</B> to set attribute values that contain invalid XML characters, you will receive a runtime error message.</P>
+
+<P>This is a breaking change that has been implemented to enhance compliancy with the W3C XML specification. To resolve this, you must change your code so that you do not permit the use of invalid XML characters when setting attribute values.</P>
+
+<H3 class="dtH3">Schemas imported in included schemas must be explicitly imported in including parent schema</H3>
+
+<P>In MSXML 4.0 SP2, you must explicitly import schemas that are imported in included schemas so that the including parent schema can use/reference schema definitions that they contain.</P>
+
+<P>For example, if the following dependencies between three separate XML schemas is in effect:
+
+<UL type="disc">
+	<LI>Schema A (a.xsd) uses an XSD <B>include</B> element to include schema B (b.xsd)</li>
+
+	<LI>Schema B uses an XSD <B>import</B> element to import Schema C (c.xsd)</li>
+</UL>
+
+<P>If Schema A (a.xsd) then attempts to use schema components defined in Schema C, the following error message might be generated when Schema A is compiled:</P>
+
+<PRE class="code">'&lt;Namespace URI&gt;' is an invalid targetNamespace URI.</PRE>
+
+<P>To resolve this error, Schema A needs to contain an XSD <B>import</B> element with corresponding <B>namespace</B> and <B>schemaLocation</B> attributes that explicitly import Schema C. Both attributes are required. An import element with just the <B>namespace</B> attribute alone will not suffice. The <B>schemaLocation</B> must also be included and it must specify the location of Schema C.</P>
+
+<P>This change was made in MSXML 4.0 SP2 to achieve further compliancy with the W3C XML Schema specification.</P>
+
+<H3 class="dtH3">&lt;xsd:all&gt; not permitted in an &lt;xsd:extension&gt; when base type is not empty</H3>
+
+<P>MSXML 4.0 SP2 prohibits the use of the XSD <B>all</B> element in a complex type extension when the base type is not empty. This change was made in MSXML 4.0 SP2 to achieve further compliancy with the W3C XML Schema specification. Any attempt to use the XSD <B>all</B> element in this context will result in the following error when the schema is compiled:</P>
+
+<PRE class="code">&lt;all&gt; is not the only particle in a &lt;group&gt; or being used as an extension.</PRE>
+
+<P>The following is a sample schema that features an invalid use of XSD <B>all</B> element in a complexContent type extension.</P>
+
+<PRE class="code">&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+   &lt;xs:complexType name="DataReader"&gt;
+      &lt;xs:sequence&gt;
+         &lt;xs:element name="PacketSize" type="xs:integer"/&gt;
+         &lt;xs:element name="Encrypt" type="xs:Boolean"/&gt;
+      &lt;/xs:sequence&gt;
+   &lt;/xs:complexType&gt;
+   &lt;xs:complexType name="NetworkReader"&gt;
+      &lt;xs:complexContent&gt;
+         &lt;xs:extension base="DataReader"&gt;
+            <code><b class="cfe">&lt;xs:all&gt;</b></code>
+<code><b class="cfe">               &lt;xs:element name="ServerAddress" type="xs:string"/&gt;</b></code>
+<code><b class="cfe">               &lt;xs:element name="ServerPort"&gt;</b></code>
+<code><b class="cfe">                  &lt;xs:simpleType&gt;</b></code>
+<code><b class="cfe">                     &lt;xs:restriction base="xs:integer"&gt;</b></code>
+<code><b class="cfe">                        &lt;xs:minInclusive value="0"/&gt;</b></code>
+<code><b class="cfe">                        &lt;xs:maxInclusive value="65535"/&gt;</b></code>
+<code><b class="cfe">                     &lt;/xs:restriction&gt;</b></code>
+<code><b class="cfe">                  &lt;/xs:simpleType&gt;</b></code>
+<code><b class="cfe">               &lt;/xs:element&gt;</b></code>
+<code><b class="cfe">               &lt;xs:element name="RecvTimeoutMS" type="xs:nonNegativeInteger" minOccurs="0"/&gt;</b></code>
+            <code><b class="cfe">&lt;/xs:all&gt;</b></code>
+         &lt;/xs:extension&gt;
+      &lt;/xs:complexContent&gt;
+   &lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;</PRE>
+
+<P>The W3C XML Schema specification does not permit the use of the XSD <B>all</B> element when extending a non-empty base complexType. In this specific sample for instance, an XSD schema <B>sequence</B> element could be used instead of the <B>all</B> element to define the complex content extension. For more information on what is permitted in complexType extension rules, refer directly to the XML Schema specification.</P>
+
+<H3 class="dtH3">XSD uniqueness identity constraints now checked when using XSI type attribute</H3>
+
+<P>In MSXML 4.0 RTM and SP1, if an element's type was changed using the XML schema instance <B>xsi:type</B> attribute, any uniqueness identity contraints on those elements were not performed as part of validation. This was a bug that has been fixed in MSXML 4.0 SP2.</P>
+
+<P>For instance, in MSXML 4.0 SP2 an attempt to validate the following Products.xml document against the Products.xsd schema will generate a validation error message reflecting the presence of a duplicate Product Id in the data.</P>
+
+<P class="label"><B>Products.xml</B></P>
+
+<PRE class="code">&lt;?xml version="1.0"?&gt;
+&lt;Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+   &lt;products&gt;
+      &lt;product&gt;
+         &lt;productID xsi:type="ProductIdType"&gt;Prod1&lt;/productID&gt;
+      &lt;/product&gt;
+      &lt;product&gt;
+         &lt;productID xsi:type="ProductIdType"&gt;Prod1&lt;/productID&gt;
+      &lt;/product&gt;
+    &lt;/products&gt;
+&lt;/Catalog&gt;</PRE>
+
+<P class="label"><B>Products.xsd</B></P>
+
+<PRE class="code">&lt;xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xsd:element name="Catalog" type="catalogType" /&gt;
+    &lt;xsd:complexType name="catalogType"&gt;
+      &lt;xsd:choice&gt;
+         &lt;xsd:element name="products"&gt;
+             &lt;xsd:complexType&gt;
+                &lt;xsd:choice maxOccurs="100"&gt;
+                   &lt;xsd:element name="product" maxOccurs="unbounded"&gt;
+                       &lt;xsd:complexType&gt;
+                          &lt;xsd:sequence&gt;
+                             &lt;xsd:element name="productID" type="xsd:string"/&gt;
+                          &lt;/xsd:sequence&gt;
+                       &lt;/xsd:complexType&gt;
+                   &lt;/xsd:element&gt;
+               &lt;/xsd:choice&gt;
+             &lt;/xsd:complexType&gt;
+             &lt;xsd:unique name="unique_part"&gt;
+                 &lt;xsd:selector xpath="./product" /&gt;
+                 &lt;xsd:field xpath="productID" /&gt;
+             &lt;/xsd:unique&gt;
+       &lt;/xsd:element&gt;
+    &lt;/xsd:choice&gt;
+  &lt;/xsd:complexType&gt;
+  &lt;xsd:simpleType name="ProductIdType"&gt;
+    &lt;xsd:restriction base="xsd:string"&gt;
+      &lt;xsd:maxLength value="5"/&gt;
+    &lt;/xsd:restriction&gt;
+  &lt;/xsd:simpleType&gt;
+&lt;/xsd:schema&gt;</PRE>
+
+<H3 class="dtH3">Security tightened when posting data using the ServerXmlHttp object</H3>
+
+<P>Security in the implementation of the MSXML 4.0 SP2 <B>ServerXmlHttp</B> object has been enhanced to check the Internet Explorer security policy setting for submitting non-encrypted form data. A security policy setting of "Disable" or "Prompt" for the "Submit nonencrypted form data" option will result in an "Access Denied" error message when attempting to post form data using the <B>ServerXmlHttp</B> object. This is a change that can potentially break existing code that uses earlier versions of the <B>ServerXmlHttp</B> object (such as prior released versions of both MSXML 3.0 and MSXML 4.0) to post form data when the Internet Explorer security policy setting for submitting non-encrypted form data is not enabled.</P>
+
+<P>To configure Internet Explorer security to allow submitting nonencrypted form data for all users on a computer, do the following in Windows 2000 and later:
+
+<OL type="1">
+	<LI>From the <B>Start</B> menu, click <B>Run</B>, type "mmc" and then press ENTER.</li>
+
+	<LI>From the <B>File</B> menu, select <B>Add/Remove Snap-In</B>.</li>
+
+	<LI>In Add/Remove Snap-In, click <B>Add</B>.</li>
+
+	<LI>In Add Standalone Snap-In, from the list of available snap-ins, scroll to <B>Resultant Set of Policy</B> and select it, and then click <B>Add</B>.
+<P>The Resultant Set of Policy Wizard appears.
+</li>
+
+	<LI>Complete the Resultant Set of Policy Wizard using the following settings:
+<OL type="a">
+	<LI>For <B>Mode Selection</B>, select <B>Logging</B> mode</li>
+
+	<LI>For <B>Compute Selection</B>, select <B>this computer</B>.</li>
+
+	<LI>For <B>User Selection</B>, select <B>Display policy settings for</B> and <B>Current user</B>.</li>
+</OL>
+</li>
+
+	<LI>In the Resultant Set of Policy snap-in, expand the treeview in the action pane and browse to <B>Security</B>.
+<BLOCKQUOTE class="dtBlock">
+<b class="le">Tip</b>&nbsp;&nbsp;&nbsp;The path in the treeview is as follows:</BLOCKQUOTE>
+
+<PRE class="code">Console Root
+   [username] on [machinename] - RSoP
+      User Configuration
+         Windows Settings
+            Internet Explorer Maintenance
+               Security</PRE>
+</li>
+
+	<LI>In the details pane, select <B>Security Zones and Content Ratings</B>.</li>
+
+	<LI>From the <B>Action</B> menu, select <B>Properties</B>.</li>
+
+	<LI>In <B>Security Zones and Content Ratings</B>, select <B>Import the current security zones and privacy settings</B>.</li>
+
+	<LI>Click <B>View Settings</B>.</li>
+
+	<LI>In <B>View Settings</B>, modify the settings to enable the "Submit nonencrypted form data" option for the appropriate zone.
+<P>The zone for which the setting should be enabled is determined by the zone under which the target URL of the POST operation is classified. For instance, when posting to an Internet URL you will need to enable this option for the Internet zone.
+</li>
+</OL>
+
+</BODY>
+</HTML>
